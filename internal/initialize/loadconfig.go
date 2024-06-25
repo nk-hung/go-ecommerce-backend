@@ -19,8 +19,8 @@ func LoadConfig() {
 		panic(fmt.Errorf("fail to read configuration %w \n", err))
 	}
 
-	fmt.Println("Server Port:::", viper.GetInt("server.port"))
 	fmt.Println("JWT KEy:::", viper.GetString("security.jwt.key"))
+	fmt.Println("Server Port:::", viper.GetInt("server.port"))
 
 	// configurate structure
 	if err := viper.Unmarshal(&global.Config); err != nil {
