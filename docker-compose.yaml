@@ -1,0 +1,59 @@
+version: "3.8"
+
+services:
+  kafka:
+    image: "bitnami/kafka:3.5"
+    container_name: "pre_kafka_container"
+    environment:
+      KAFKA_ENABLE_KRAFT: yes
+      KAFKA_CFG_NODE_ID: 1
+      KAFKA_CFG_PROCESS_ROLES: controller, broker
+      KAFKA_CFG_LISTENERS: PLAINTEXT://9092,CONTROLLER://:9093
+      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://192.168.1.19:19092
+      KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: 1@pre_kafka_container:9093
+      KAFKA_CFG_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_KRAFT_CLUSTER_ID: MGZmNjgzYmY1MTYyNDFkZD
+      KAFKA_PlAINTEXT_LISTENER: yes
+      KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE: true
+      KAFKA_BROKER_ID: 1
+
+    ports:
+      - 19092:9092
+      - 19093:9093
+    volumes:
+      - ./kafka/broker1:/bitnami/kafka:rw
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    environment:
+      KAFKA_CLUSTERS_O_NAME: local
+      KAFKA_CLUSTERS_O_BOOSTRAPSERVERS: pre_kafka_container:9092
+    ports:
+      - "9091:8080"
+    depends_on:
+      - kafka
+
+  mysql:
+    image: mysql:8.0
+    container_name: pre_mysql_container
+    environment:
+      MYSQL_ROOT_PASSWORD: root1234
+      MYSQL_DATABASE: shopdevgo
+    ports:
+      - "33336:3306"
+    volumes:
+      - mysql_data: /var/lib/mysql/
+      - ./init:/docker-entrypoint-initdb.d"
+
+  redis:
+    image: redis:7.0
+    container_name: pre_redis_conatainer
+    ports:
+      - "6331:6379"
+    volumes:
+      - redis_data:/data
+
+  volumes:
+    mysql_data:
+    redis:data:
