@@ -1,0 +1,56 @@
+[shell]
+args = ['--login']
+program = "/usr/bin/zsh"
+
+[cursor]
+style = "Beam"
+vi_mode_style = "Beam"
+
+[font]
+size = 11.25
+
+[font.normal]
+family = "Monaspace Argon Var"
+style = "Light"
+
+[font.bold]
+family = "Monaspace Argon Var"
+style = "Bold"
+
+[font.italic]
+family = "Monaspace Argon Var"
+style = "Italic"
+
+[window]
+startup_mode = "Fullscreen"
+dynamic_padding = true
+opacity = 0.95
+
+[window.padding]
+x = 6
+y = 0
+
+#[window.dimensions]
+#columns = 90
+#lines = 25
+
+[colors]
+transparent_background_colors = true
+
+[colors.normal]
+black = "#21222c"
+red = "#ff5555"
+green = "#50fa7b"
+yellow = "#f1fa8c"
+blue = "#bd93f9"
+magenta = "#ff79c6"
+cyan = "#8be9fd"
+white = "#f8f8f2"
+
+[colors.primary]
+background = "#282a36"
+foreground = "#f8f8f2"
+
+[colors.cursor]
+text = "CellBackground"
+cursor = "CellForeground"
